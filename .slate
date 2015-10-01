@@ -1,0 +1,78 @@
+config defaultToCurrentScreen true
+config nudgePercentOf screenSize
+config resizePercentOf screenSize
+config secondsBetweenRepeat 0.1
+config checkDefaultsOnLoad true
+
+# Monitor Aliases
+alias mon-laptop  0
+alias mon-thun 1
+
+# Abstract positions
+alias full          move screenOriginX;screenOriginY                  screenSizeX;screenSizeY
+alias lefthalf      move screenOriginX;screenOriginY                  screenSizeX/2;screenSizeY
+alias righthalf     move screenOriginX+screenSizeX/2;screenOriginY    screenSizeX/2;screenSizeY
+alias rightmost     move screenOriginX+screenSizeX*0.4;screenOriginY  screenSizeX*0.6;screenSizeY
+alias rightless     move screenOriginX+screenSizeX*0.6;screenOriginY  screenSizeX*0.4;screenSizeY
+alias leftmost      move screenOriginX;screenOriginY                  screenSizeX*0.6;screenSizeY
+alias leftless      move screenOriginX;screenOriginY                  screenSizeX*0.4;screenSizeY
+
+# Concrete positions
+alias 1-full        move screenOriginX;screenOriginY 								screenSizeX;screenSizeY         ${mon-laptop}
+alias 1-left        move screenOriginX;screenOriginY 								screenSizeX/2;screenSizeY       ${mon-laptop}
+alias 1-right       move screenOriginX+screenSizeX/2;screenOriginY  				screenSizeX/2;screenSizeY       ${mon-laptop}
+alias 1-twothirdsright move screenOriginX+screenSizeX*.35;screenOriginY 			screenSizeX*.65;screenSizeY 	${mon-laptop}
+alias 1-onethirdlefttop move screenOriginX;screenOriginY 							screenSizeX*.35;screenSizeY*.6  ${mon-laptop}  
+alias 1-onethirdleftbottom move screenOriginX;screenOriginY+screenSizeY*.6 		screenSizeX*.35;screenSizeY 	${mon-laptop}   
+alias 2-left        move screenOriginX;screenOriginY 								screenSizeX/2;screenSizeY       ${mon-thun}
+alias 2-right       move screenOriginX+screenSizeX/2;screenOriginY 					screenSizeX/2;screenSizeY     	${mon-thun}
+alias 2-righttop    move screenOriginX+screenSizeX/2;screenOriginY 					screenSizeX/2;screenSizeY/2     ${mon-thun}
+alias 2-rightbottom move screenOriginX+screenSizeX/2;screenOriginY+screenSizeY/2    screenSizeX/2;screenSizeY/2     ${mon-thun}
+alias 2-full        move screenOriginX;screenOriginY 								screenSizeX;screenSizeY         ${mon-thun}
+
+# 2 Monitor layout
+layout 2monitors 'iTerm':MAIN_FIRST                 ${2-rightbottom}
+layout 2monitors 'Google Chrome':REPEAT             ${1-twothirdsright}
+layout 2monitors 'Slack':REPEAT                     ${1-onethirdlefttop}
+layout 2monitors 'Sublime Text':REPEAT              ${2-full}
+layout 2monitors 'Finder':REPEAT              		${1-onethirdleftbottom} 
+layout 2monitors 'Firefox':MAIN_FIRST 				${1-onethirdleftbottom}
+  
+
+#Coding Layout (2 monitors)
+layout coding 'iTerm':MAIN_FIRST                 ${1-onethirdlefttop}
+layout coding 'Google Chrome':MAIN_FIRST         ${2-full}
+layout coding 'Slack':REPEAT                     ${2-rightbottom}
+layout coding 'Sublime Text':REPEAT              ${1-twothirdsright}
+layout coding 'Firefox':REPEAT 					 ${1-onethirdleftbottom}
+layout coding 'Finder':MAIN_FIRST                ${1-onethirdleftbottom}
+
+# Communication Layout
+layout comm 'Slack':MAIN_FIRST					${2-full}
+layout comm 'Firefox':MAIN_FIRST				${1-full}
+
+# 1 Monitor Layout
+layout 1monitor 'iTerm':MAIN_FIRST                       ${1-right}
+layout 1monitor 'Sublime Text':MAIN_FIRST              ${1-left}
+layout 1monitor 'Chrome':MAIN_FIRST            ${1-full}
+layout 1monitor 'Finder':REPEAT                ${1-full}
+
+
+# Push Bindings
+bind right:ctrl;cmd  push right bar-resize:screenSizeX/2
+bind left:ctrl;cmd   push left  bar-resize:screenSizeX/2
+bind up:ctrl;cmd     push up    bar-resize:screenSizeY/2
+bind down:ctrl;cmd   push down  bar-resize:screenSizeY/2
+
+# Throw Bindings
+bind right:ctrl;alt;cmd throw 0 resize
+bind left:ctrl;alt;cmd  throw 1 resize
+bind down:ctrl;alt;cmd  throw down  resize
+
+# Default Layouts
+default 2monitors resolutions:${mon-laptop};${mon-thun};
+default 1monitor  resolutions:${mon-laptop}
+
+bind m:cmd sequence layout 2monitors | focus 'iTerm' | focus 'Slack' | focus 'Sublime Text' | focus 'Notes' | focus 'Google Chrome'
+bind n:cmd sequence layout coding | focus 'Finder' | focus 'iTerm' | focus 'Slack' | focus 'Google Chrome' | focus 'Sublime Text'   
+bind h:cmd sequence layout comm | focus 'Slack' | focus 'IBM Notes'
