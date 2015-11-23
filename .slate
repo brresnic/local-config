@@ -43,20 +43,15 @@ alias 3-rightbottom move screenOriginX+screenSizeX/2;screenOriginY+screenSizeY/2
 alias 3-full        move screenOriginX;screenOriginY 								screenSizeX;screenSizeY         ${mon-laptop}
 
 # 3 Monitor layout
-layout 3monitors 'iTerm':MAIN_FIRST                 ${2-rightbottom}
-layout 3monitors 'Google Chrome':REPEAT             ${2-left}
-layout 3monitors 'Slack':REPEAT                     ${3-left}
+layout 3monitors 'Google Chrome':REPEAT             ${2-full}
 layout 3monitors 'Sublime Text':REPEAT              ${1-full}
-layout 3monitors 'Finder':REPEAT 					${3-right}
-layout 3monitors 'Firefox':MAIN_FIRST				${2-right}
+layout 3monitors 'Firefox':REPEAT 					${3-full}
 
 # 3 Monitor coding layout
-layout 3coding 'iTerm':MAIN_FIRST                 ${2-onethirdrighttop}
+layout 3coding 'iTerm':MAIN_FIRST                 ${3-left}
 layout 3coding 'Google Chrome':REPEAT             ${1-full}
-layout 3coding 'Slack':REPEAT                     ${1-onethirdlefttop}
-layout 3coding 'Sublime Text':REPEAT              ${2-twothirdsleft}
-layout 3coding 'Finder':REPEAT                    ${2-onethirdrightbottom}
-layout 3coding 'Firefox':MAIN_FIRST				  ${3-full}
+layout 3coding 'Sublime Text':REPEAT              ${2-full}
+layout 3coding 'Finder':REPEAT                    ${3-right}
 
 # 2 Monitor layout
 layout 2monitors 'iTerm':MAIN_FIRST                 ${2-rightbottom}
@@ -75,8 +70,16 @@ layout coding 'Firefox':REPEAT 					 ${1-onethirdleftbottom}
 layout coding 'Finder':MAIN_FIRST                ${1-onethirdleftbottom}
 
 # Communication Layout
-layout comm 'Slack':MAIN_FIRST					${2-full}
+layout comm 'Notes':MAIN_FIRST					${3-full}
+layout comm 'Spotify':MAIN_FIRST				${2-right}
+layout comm 'Slack':MAIN_FIRST					${2-left}
 layout comm 'Firefox':MAIN_FIRST				${1-full}
+
+# Design Layout
+layout des 'Sketch':MAIN_FIRST					${2-right}
+layout des 'Google Chrome':MAIN_FIRST			${2-left}
+layout des 'Sublime Text':MAIN_FIRST			${3-full}
+layout des 'Firefox':MAIN_FIRST					${1-full}
 
 # 1 Monitor Layout
 layout 1monitor 'iTerm':MAIN_FIRST              ${1-right}
@@ -101,6 +104,7 @@ default 2monitors resolutions:${mon-dell};${mon-thun};
 default 1monitor  resolutions:${mon-dell};
 default 3coding count:3
 
-bind m:cmd sequence layout 3monitors | focus 'iTerm' | focus 'Slack' | focus 'Sublime Text' | focus 'Notes' | focus 'Google Chrome'
+bind  j:cmd sequence layout des | focus 'Sketch' | focus 'Google Chrome' | focus 'Sublime Text' | focus 'Firefox'
+bind m:cmd sequence layout 3monitors | focus 'Sublime Text' | focus 'Notes' | focus 'Google Chrome'
 bind n:cmd sequence layout 3coding | focus 'Finder' | focus 'iTerm' | focus 'Slack' | focus 'Google Chrome' | focus 'Sublime Text'
-bind h:cmd sequence layout comm | focus 'Slack' | focus 'IBM Notes'
+bind h:cmd sequence layout comm | focus 'Slack' | focus 'Firefox' | focus 'Spotify'
