@@ -5,8 +5,9 @@ config secondsBetweenRepeat 0.1
 config checkDefaultsOnLoad true
 
 # Monitor Aliases
-alias mon-laptop  0
+alias mon-dell  0
 alias mon-thun 1
+alias mon-laptop 2
 
 # Abstract positions
 alias full          move screenOriginX;screenOriginY                  screenSizeX;screenSizeY
@@ -18,26 +19,52 @@ alias leftmost      move screenOriginX;screenOriginY                  screenSize
 alias leftless      move screenOriginX;screenOriginY                  screenSizeX*0.4;screenSizeY
 
 # Concrete positions
-alias 1-full        move screenOriginX;screenOriginY 								screenSizeX;screenSizeY         ${mon-laptop}
-alias 1-left        move screenOriginX;screenOriginY 								screenSizeX/2;screenSizeY       ${mon-laptop}
-alias 1-right       move screenOriginX+screenSizeX/2;screenOriginY  				screenSizeX/2;screenSizeY       ${mon-laptop}
-alias 1-twothirdsright move screenOriginX+screenSizeX*.35;screenOriginY 			screenSizeX*.65;screenSizeY 	${mon-laptop}
-alias 1-onethirdlefttop move screenOriginX;screenOriginY 							screenSizeX*.35;screenSizeY*.6  ${mon-laptop}  
-alias 1-onethirdleftbottom move screenOriginX;screenOriginY+screenSizeY*.6 		screenSizeX*.35;screenSizeY 	${mon-laptop}   
+
+alias 1-full        move screenOriginX;screenOriginY 								screenSizeX;screenSizeY         ${mon-dell}
+alias 1-left        move screenOriginX;screenOriginY 								screenSizeX/2;screenSizeY       ${mon-dell}
+alias 1-right       move screenOriginX+screenSizeX/2;screenOriginY  				screenSizeX/2;screenSizeY       ${mon-dell}
+alias 1-twothirdsright move screenOriginX+screenSizeX*.35;screenOriginY 			screenSizeX*.65;screenSizeY 	${mon-dell}
+alias 1-onethirdlefttop move screenOriginX;screenOriginY 							screenSizeX*.35;screenSizeY*.6  ${mon-dell}
+alias 1-onethirdleftbottom move screenOriginX;screenOriginY+screenSizeY*.6 			screenSizeX*.35;screenSizeY 	${mon-dell}
+
 alias 2-left        move screenOriginX;screenOriginY 								screenSizeX/2;screenSizeY       ${mon-thun}
 alias 2-right       move screenOriginX+screenSizeX/2;screenOriginY 					screenSizeX/2;screenSizeY     	${mon-thun}
 alias 2-righttop    move screenOriginX+screenSizeX/2;screenOriginY 					screenSizeX/2;screenSizeY/2     ${mon-thun}
 alias 2-rightbottom move screenOriginX+screenSizeX/2;screenOriginY+screenSizeY/2    screenSizeX/2;screenSizeY/2     ${mon-thun}
 alias 2-full        move screenOriginX;screenOriginY 								screenSizeX;screenSizeY         ${mon-thun}
+alias 2-twothirdsleft move screenOriginX;screenOriginY 								screenSizeX*.65;screenSizeY 	${mon-thun}
+alias 2-onethirdrighttop move screenOriginX+screenSizeX*.65;screenOriginY 			screenSizeX*.35;screenSizeY*.6  ${mon-thun}
+alias 2-onethirdrightbottom move screenOriginX+screenSizeX*.65;screenOriginY+screenSizeY*.6 		screenSizeX*.35;screenSizeY 	${mon-thun}
+
+alias 3-left        move screenOriginX;screenOriginY 								screenSizeX/2;screenSizeY       ${mon-laptop}
+alias 3-right       move screenOriginX+screenSizeX/2;screenOriginY 					screenSizeX/2;screenSizeY     	${mon-laptop}
+alias 3-righttop    move screenOriginX+screenSizeX/2;screenOriginY 					screenSizeX/2;screenSizeY/2     ${mon-laptop}
+alias 3-rightbottom move screenOriginX+screenSizeX/2;screenOriginY+screenSizeY/2    screenSizeX/2;screenSizeY/2     ${mon-laptop}
+alias 3-full        move screenOriginX;screenOriginY 								screenSizeX;screenSizeY         ${mon-laptop}
+
+# 3 Monitor layout
+layout 3monitors 'iTerm':MAIN_FIRST                 ${2-rightbottom}
+layout 3monitors 'Google Chrome':REPEAT             ${2-left}
+layout 3monitors 'Slack':REPEAT                     ${3-left}
+layout 3monitors 'Sublime Text':REPEAT              ${1-full}
+layout 3monitors 'Finder':REPEAT 					${3-right}
+layout 3monitors 'Firefox':MAIN_FIRST				${2-right}
+
+# 3 Monitor coding layout
+layout 3coding 'iTerm':MAIN_FIRST                 ${2-onethirdrighttop}
+layout 3coding 'Google Chrome':REPEAT             ${1-full}
+layout 3coding 'Slack':REPEAT                     ${1-onethirdlefttop}
+layout 3coding 'Sublime Text':REPEAT              ${2-twothirdsleft}
+layout 3coding 'Finder':REPEAT                    ${2-onethirdrightbottom}
+layout 3coding 'Firefox':MAIN_FIRST				  ${3-full}
 
 # 2 Monitor layout
 layout 2monitors 'iTerm':MAIN_FIRST                 ${2-rightbottom}
 layout 2monitors 'Google Chrome':REPEAT             ${1-twothirdsright}
 layout 2monitors 'Slack':REPEAT                     ${1-onethirdlefttop}
 layout 2monitors 'Sublime Text':REPEAT              ${2-full}
-layout 2monitors 'Finder':REPEAT              		${1-onethirdleftbottom} 
+layout 2monitors 'Finder':REPEAT              		${1-onethirdleftbottom}
 layout 2monitors 'Firefox':MAIN_FIRST 				${1-onethirdleftbottom}
-  
 
 #Coding Layout (2 monitors)
 layout coding 'iTerm':MAIN_FIRST                 ${1-onethirdlefttop}
@@ -52,8 +79,8 @@ layout comm 'Slack':MAIN_FIRST					${2-full}
 layout comm 'Firefox':MAIN_FIRST				${1-full}
 
 # 1 Monitor Layout
-layout 1monitor 'iTerm':MAIN_FIRST                       ${1-right}
-layout 1monitor 'Sublime Text':MAIN_FIRST              ${1-left}
+layout 1monitor 'iTerm':MAIN_FIRST              ${1-right}
+layout 1monitor 'Sublime Text':MAIN_FIRST       ${1-left}
 layout 1monitor 'Chrome':MAIN_FIRST            ${1-full}
 layout 1monitor 'Finder':REPEAT                ${1-full}
 
@@ -66,13 +93,14 @@ bind down:ctrl;cmd   push down  bar-resize:screenSizeY/2
 
 # Throw Bindings
 bind right:ctrl;alt;cmd throw 0 resize
-bind left:ctrl;alt;cmd  throw 1 resize
-bind down:ctrl;alt;cmd  throw down  resize
+bind down:ctrl;alt;cmd  throw 1 resize
+bind left:ctrl;alt;cmd  throw 2 resize
 
 # Default Layouts
-default 2monitors resolutions:${mon-laptop};${mon-thun};
-default 1monitor  resolutions:${mon-laptop}
+default 2monitors resolutions:${mon-dell};${mon-thun};
+default 1monitor  resolutions:${mon-dell};
+default 3coding count:3
 
-bind m:cmd sequence layout 2monitors | focus 'iTerm' | focus 'Slack' | focus 'Sublime Text' | focus 'Notes' | focus 'Google Chrome'
-bind n:cmd sequence layout coding | focus 'Finder' | focus 'iTerm' | focus 'Slack' | focus 'Google Chrome' | focus 'Sublime Text'   
+bind m:cmd sequence layout 3monitors | focus 'iTerm' | focus 'Slack' | focus 'Sublime Text' | focus 'Notes' | focus 'Google Chrome'
+bind n:cmd sequence layout 3coding | focus 'Finder' | focus 'iTerm' | focus 'Slack' | focus 'Google Chrome' | focus 'Sublime Text'
 bind h:cmd sequence layout comm | focus 'Slack' | focus 'IBM Notes'
